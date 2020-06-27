@@ -1,19 +1,23 @@
 package com.company;
 
+import java.util.List;
+
 public class Capacitor implements Element {
+    public static List<Capacitor> allCapacitors;
+
     String name;
     Node node1;
     Node node2;
     double capacity;//the electrical argument shown by 'C'
     double initialVoltage;//the electrical argument shown by 'V0'
 
-    Capacitor(String name, Node node1, Node node2, double capacity, double initialVoltage) {
+    Capacitor(String name, Node node1, Node node2, double capacity, double initialVoltage) { //constructor of the class
         this.name = name;
         this.node1 = node1;
         this.node2 = node2;
         this.capacity = capacity;
         this.initialVoltage = initialVoltage;
-    }
+    } //End of the constructor
 
     double getVoltage(double time) {
         double I = 0;
@@ -31,4 +35,4 @@ public class Capacitor implements Element {
     public double getPower(double time) {
         return getVoltage(time) * getCurrent(time);
     }
-}
+}//End of class Element
