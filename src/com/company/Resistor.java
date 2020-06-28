@@ -1,8 +1,10 @@
 package com.company;
 
+import com.sun.org.apache.regexp.internal.RE;
+
 import java.util.List;
 
-public class Resistor implements Element {
+public class Resistor implements IElement {
     public static List<Resistor> allResistors;
 
     String name;
@@ -17,15 +19,25 @@ public class Resistor implements Element {
         this.resistance = resistance;
     } //End of constructor
 
-    double getVoltage(double time) {
+    public double getVoltage(double time) {
         return getCurrent(time) / resistance;
     }
 
-    double getCurrent(double time) {
+    public double getCurrent(double time) {
         return getVoltage(time) / resistance;
     }
 
     public double getPower(double time) {
         return getVoltage(time) * getCurrent(time);
+    }
+
+    static Resistor find(String name) {
+        for(Resistor resistor : allResistors) {
+            if(resistor.name.equals(name)) {
+                return resistor;
+            }
+        }
+
+        return null;
     }
 } //End of class Resistor

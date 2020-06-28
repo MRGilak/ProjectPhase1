@@ -5,6 +5,23 @@ import java.util.Scanner;
 public class Main {
     public static double deltaT;
 
+    static IElement findElement(String string) {
+        String name = string.substring(1);
+        if(string.startsWith("R")) {
+            return Resistor.find(name);
+        }
+
+        else if(string.startsWith("C")) {
+            return Capacitor.find(name);
+        }
+
+        else if(string.startsWith("L")) {
+            return Inductor.find(name);
+        }
+
+        return null;
+    }
+
 
     static void StringAnalyzer(String string) {//This function analyzes the entered command and summons the appropriate function or class
         String[] strings = string.split(" ");
@@ -47,29 +64,44 @@ public class Main {
                 Inductor inductor = new Inductor(strings[0], node1, node2, number(strings[3]), initialCurrent);
                 Inductor.allInductors.add(inductor);
             }//End of condition 'Inductor'
+
+            if(string.startsWith("I")) {//This condition checks the command to build a inductor
+                strings[0] = strings[0].substring(1);//The first letter must be ignored
+
+                CurrentSource currentSource = new CurrentSource(strings[0], node1, node2, number(strings[3]), number(strings[4]), number(strings[5]), number(strings[6]));
+                CurrentSource.allCurrentSources.add(currentSource);
+            }//End of condition 'Current Source'
+
+            if(string.startsWith("V")) {//This condition checks the command to build a inductor
+                strings[0] = strings[0].substring(1);//The first letter must be ignored
+
+                VoltageSource voltageSource = new VoltageSource(strings[0], node1, node2, number(strings[3]), number(strings[4]), number(strings[5]), number(strings[6]));
+                VoltageSource.allVoltageSources.add(voltageSource);
+            }//End of condition 'Voltage Source'
         }//End of condition
     }//End of function StringAnalyzer
 
     //We should check for the suffixes p, n, u, m, k, M, G
     static Double number(String string) {
-        double number;
+        double number, rawNumber;
+        rawNumber = Double.parseDouble(string.substring(0, string.length()-1));
 
         if(string.endsWith("p"))
-            number = Double.parseDouble(string.substring(0, string.length()-1)) * Math.pow(10d, -12d);
+            number = rawNumber * Math.pow(10d, -12d);
         else if(string.endsWith("n"))
-            number = Double.parseDouble(string.substring(0, string.length()-1)) * Math.pow(10d, -9d);
+            number = rawNumber * Math.pow(10d, -9d);
         else if(string.endsWith("u"))
-            number = Double.parseDouble(string.substring(0, string.length()-1)) * Math.pow(10d, -6d);
+            number = rawNumber * Math.pow(10d, -6d);
         else if(string.endsWith("m"))
-            number = Double.parseDouble(string.substring(0, string.length()-1)) * Math.pow(10d, -3d);
+            number = rawNumber * Math.pow(10d, -3d);
         else if(string.endsWith("k"))
-            number = Double.parseDouble(string.substring(0, string.length()-1)) * Math.pow(10d, 3d);
+            number = rawNumber * Math.pow(10d, 3d);
         else if(string.endsWith("M"))
-            number = Double.parseDouble(string.substring(0, string.length()-1)) * Math.pow(10d, 6d);
+            number = rawNumber * Math.pow(10d, 6d);
         else if(string.endsWith("G"))
-            number = Double.parseDouble(string.substring(0, string.length()-1)) * Math.pow(10d, 9d);
+            number = rawNumber * Math.pow(10d, 9d);
         else
-            number = Double.parseDouble(string)
+            number = Double.parseDouble(string);
 
         return number;
     }//End of function 'number'

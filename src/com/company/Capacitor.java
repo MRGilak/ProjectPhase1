@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.List;
 
-public class Capacitor implements Element {
+public class Capacitor implements IElement {
     public static List<Capacitor> allCapacitors;
 
     String name;
@@ -19,7 +19,7 @@ public class Capacitor implements Element {
         this.initialVoltage = initialVoltage;
     } //End of the constructor
 
-    double getVoltage(double time) {
+    public double getVoltage(double time) {
         double I = 0;
         for(int k = 1; k <= (time / Main.deltaT); k++) {
             I += getCurrent(k * Main.deltaT) * Main.deltaT;
@@ -28,11 +28,21 @@ public class Capacitor implements Element {
         return initialVoltage + (I / capacity);
     }
 
-    double getCurrent(double time) {
+    public double getCurrent(double time) {
         return capacity * ((getVoltage(time + Main.deltaT) - getVoltage(time)) / Main.deltaT);
     }
 
     public double getPower(double time) {
         return getVoltage(time) * getCurrent(time);
+    }
+
+    static Capacitor find(String name) {
+        for(Capacitor capacitor : allCapacitors) {
+            if(capacitor.name.equals(name)) {
+                return capacitor;
+            }
+        }
+
+        return null;
     }
 }//End of class Element

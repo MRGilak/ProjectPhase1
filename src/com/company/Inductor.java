@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.List;
 
-public class Inductor implements Element {
+public class Inductor implements IElement {
     public static List<Inductor> allInductors;
 
     String name;
@@ -19,11 +19,11 @@ public class Inductor implements Element {
         this.initialCurrent = initialCurrent;
     }//End of the constructor
 
-    double getVoltage(double time) {
+    public double getVoltage(double time) {
         return induction * ((getCurrent(time + Main.deltaT) - getCurrent(time)) / Main.deltaT);
     }
 
-    double getCurrent(double time) {
+    public double getCurrent(double time) {
         double V = 0;
         for(int k = 1; k <= (time / Main.deltaT); k++) {
             V += getVoltage(k * Main.deltaT) * Main.deltaT;
@@ -34,5 +34,15 @@ public class Inductor implements Element {
 
     public double getPower(double time) {
         return getVoltage(time) * getCurrent(time);
+    }
+
+    static Inductor find(String name) {
+        for(Inductor inductor : allInductors) {
+            if(inductor.name.equals(name)) {
+                return inductor;
+            }
+        }
+
+        return null;
     }
 }//End of class Inductor
