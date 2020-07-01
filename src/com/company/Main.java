@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static double deltaT;
 
-    static IElement findElement(String string) {
+    public static IElement findElement(String string) {
         String name = string.substring(1);
         if(string.startsWith("R")) {
             return Resistor.find(name);

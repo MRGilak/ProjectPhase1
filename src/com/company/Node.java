@@ -12,7 +12,7 @@ public class Node {
         this.name = name;
     }
 
-    double getVoltage() {
+    double getVoltage(double time) {
         return voltage;
     }
 
