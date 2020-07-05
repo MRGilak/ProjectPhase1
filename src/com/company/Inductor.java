@@ -18,6 +18,7 @@ public class Inductor implements IElement {
         this.node2 = node2;
         this.induction = induction;
         this.initialCurrent = initialCurrent;
+        allInductors.add(this);
     }//End of the constructor
 
     public double getVoltage(double time) {

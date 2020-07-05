@@ -11,19 +11,20 @@ public class Node {
 
     Node(String name) {
         this.name = name;
+        allNodes.add(this);
     }
 
     double getVoltage(double time) {
         return voltage;
     }
 
-    static Node find(String name) {
+    static Node findOrCreate(String name) {
         for(Node node : allNodes) {
             if(node.name.equals(name)) {
                 return node;
             }
         }
 
-        return null;
+        return new Node(name);
     }
 }//End of class Node

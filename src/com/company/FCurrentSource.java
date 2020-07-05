@@ -18,6 +18,7 @@ public class FCurrentSource{//Current controlled current source
         this.node2 = node2;
         this.element = Main.findElement(string);
         this.a = a;
+        allFCurrentSources.add(this);
     }//End of the constructor
 
     double getVoltage(double time) {

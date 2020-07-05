@@ -18,6 +18,7 @@ public class Resistor implements IElement {
         this.node1 = node1;
         this.node2 = node2;
         this.resistance = resistance;
+        allResistors.add(this);
     } //End of constructor
 
     public double getVoltage(double time) {

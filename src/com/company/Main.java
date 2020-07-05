@@ -11,15 +11,11 @@ public class Main {
 
     public static IElement findElement(String string) {
         String name = string.substring(1);
-        if(string.startsWith("R")) {
+        if (string.startsWith("R")) {
             return Resistor.find(name);
-        }
-
-        else if(string.startsWith("C")) {
+        } else if (string.startsWith("C")) {
             return Capacitor.find(name);
-        }
-
-        else if(string.startsWith("L")) {
+        } else if (string.startsWith("L")) {
             return Inductor.find(name);
         }
 
@@ -29,114 +25,94 @@ public class Main {
 
     static void StringAnalyzer(String string) {//This function analyzes the entered command and summons the appropriate function or class
         String[] strings = string.split(" ");
-        if(! string.startsWith("*")) {//The lines starting with '*' are comments
-            //First we check to see if we need to build a new node (maybe it already exists)
-            Node node1 = Node.find(strings[1]);
-            Node node2 = Node.find(strings[2]);
-            if(node1 == null) {
-                node1 = new Node(strings[1]);
-                Node.allNodes.add(node1);
-            }
-            if(node2 == null) {
-                node2 = new Node(strings[2]);
-                Node.allNodes.add(node2);
-            }
+        if (string.startsWith("*"))//The lines starting with '*' are comments
+            return;
 
+        //First we check to see if we need to build a new node (maybe it already exists)
+        Node node1 = Node.findOrCreate(strings[1]);
+        Node node2 = Node.findOrCreate(strings[2]);
 
-            if(string.startsWith("R")) {//This condition checks the command to build a resistor
-                strings[0] = strings[0].substring(1);//The first letter must be ignored
-                Resistor resistor = new Resistor(strings[0], node1, node2, number(strings[3]));
-                Resistor.allResistors.add(resistor);
-            }//End of condition 'Resistor'
+        if (string.startsWith("R")) {//This condition checks the command to build a resistor
+            strings[0] = strings[0].substring(1);//The first letter must be ignored
+            Resistor resistor = new Resistor(strings[0], node1, node2, getNumber(strings[3]));
+        }//End of condition 'Resistor'
 
-            if(string.startsWith("C")) {//This condition checks the command to build a capacitor
-                strings[0] = strings[0].substring(1);//The first letter must be ignored
-                double initialVoltage = 0;
-                if(string.length() == 5)
-                    initialVoltage = number(strings[4]);
+        if (string.startsWith("C")) {//This condition checks the command to build a capacitor
+            strings[0] = strings[0].substring(1);//The first letter must be ignored
+            double initialVoltage = 0;
+            if (string.length() == 5)
+                initialVoltage = getNumber(strings[4]);
 
-                Capacitor capacitor = new Capacitor(strings[0], node1, node2, number(strings[3]), initialVoltage);
-                Capacitor.allCapacitors.add(capacitor);
-            }//End of condition 'Capacitor'
+            Capacitor capacitor = new Capacitor(strings[0], node1, node2, getNumber(strings[3]), initialVoltage);
+        }//End of condition 'Capacitor'
 
-            if(string.startsWith("L")) {//This condition checks the command to build a inductor
-                strings[0] = strings[0].substring(1);//The first letter must be ignored
-                double initialCurrent = 0;
-                if(string.length() == 5)
-                    initialCurrent = number(strings[4]);
+        if (string.startsWith("L")) {//This condition checks the command to build a inductor
+            strings[0] = strings[0].substring(1);//The first letter must be ignored
+            double initialCurrent = 0;
+            if (string.length() == 5)
+                initialCurrent = getNumber(strings[4]);
 
-                Inductor inductor = new Inductor(strings[0], node1, node2, number(strings[3]), initialCurrent);
-                Inductor.allInductors.add(inductor);
-            }//End of condition 'Inductor'
+            Inductor inductor = new Inductor(strings[0], node1, node2, getNumber(strings[3]), initialCurrent);
+        }//End of condition 'Inductor'
 
-            if(string.startsWith("I")) {//This condition checks the command to build a current source
-                strings[0] = strings[0].substring(1);//The first letter must be ignored
+        if (string.startsWith("I")) {//This condition checks the command to build a current source
+            strings[0] = strings[0].substring(1);//The first letter must be ignored
 
-                CurrentSource currentSource = new CurrentSource(strings[0], node1, node2, number(strings[3]), number(strings[4]), number(strings[5]), number(strings[6]));
-                CurrentSource.allCurrentSources.add(currentSource);
-            }//End of condition 'Current Source'
+            CurrentSource currentSource = new CurrentSource(strings[0], node1, node2, getNumber(strings[3]), getNumber(strings[4]), getNumber(strings[5]), getNumber(strings[6]));
+        }//End of condition 'Current Source'
 
-            if(string.startsWith("V")) {//This condition checks the command to build a voltage source
-                strings[0] = strings[0].substring(1);//The first letter must be ignored
+        if (string.startsWith("V")) {//This condition checks the command to build a voltage source
+            strings[0] = strings[0].substring(1);//The first letter must be ignored
 
-                VoltageSource voltageSource = new VoltageSource(strings[0], node1, node2, number(strings[3]), number(strings[4]), number(strings[5]), number(strings[6]));
-                VoltageSource.allVoltageSources.add(voltageSource);
-            }//End of condition 'Voltage Source'
+            VoltageSource voltageSource = new VoltageSource(strings[0], node1, node2, getNumber(strings[3]), getNumber(strings[4]), getNumber(strings[5]), getNumber(strings[6]));
+        }//End of condition 'Voltage Source'
 
-            if(string.startsWith("E")) {//This condition checks the command to build a E voltage source
-                strings[0] = strings[0].substring(1);//The first letter must be ignored
+        if (string.startsWith("E")) {//This condition checks the command to build a E voltage source
+            strings[0] = strings[0].substring(1);//The first letter must be ignored
 
-                EVoltageSource eVoltageSource = new EVoltageSource(strings[0], node1, node2, Node.find(strings[3]), Node.find(strings[4]), number(strings[5]));
-                EVoltageSource.allEVoltageSources.add(eVoltageSource);
-            }//End of condition 'E voltage Source'
+            EVoltageSource eVoltageSource = new EVoltageSource(strings[0], node1, node2, Node.findOrCreate(strings[3]), Node.findOrCreate(strings[4]), getNumber(strings[5]));
+        }//End of condition 'E voltage Source'
 
-            if(string.startsWith("H")) {//This condition checks the command to build a H voltage source
-                strings[0] = strings[0].substring(1);//The first letter must be ignored
+        if (string.startsWith("H")) {//This condition checks the command to build a H voltage source
+            strings[0] = strings[0].substring(1);//The first letter must be ignored
 
-                HVoltageSource hVoltageSource = new HVoltageSource(strings[0], node1, node2, strings[3], number(strings[4]));
-                HVoltageSource.allHVoltageSources.add(hVoltageSource);
-            }//End of condition 'H voltage Source'
+            HVoltageSource hVoltageSource = new HVoltageSource(strings[0], node1, node2, strings[3], getNumber(strings[4]));
+        }//End of condition 'H voltage Source'
 
-            if(string.startsWith("G")) {//This condition checks the command to build a G current source
-                strings[0] = strings[0].substring(1);//The first letter must be ignored
+        if (string.startsWith("G")) {//This condition checks the command to build a G current source
+            strings[0] = strings[0].substring(1);//The first letter must be ignored
 
-                GCurrentSource gCurrentSource = new GCurrentSource(strings[0], node1, node2, Node.find(strings[3]), Node.find(strings[4]), number(strings[5]));
-                GCurrentSource.allGCurrentSources.add(gCurrentSource);
-            }//End of condition 'G current Source'
+            GCurrentSource gCurrentSource = new GCurrentSource(strings[0], node1, node2, Node.findOrCreate(strings[3]), Node.findOrCreate(strings[4]), getNumber(strings[5]));
+        }//End of condition 'G current Source'
 
-            if(string.startsWith("F")) {//This condition checks the command to build a F current source
-                strings[0] = strings[0].substring(1);//The first letter must be ignored
+        if (string.startsWith("F")) {//This condition checks the command to build a F current source
+            strings[0] = strings[0].substring(1);//The first letter must be ignored
 
-                FCurrentSource fCurrentSource = new FCurrentSource(strings[0], node1, node2, strings[3], number(strings[4]));
-                FCurrentSource.allFCurrentSources.add(fCurrentSource);
-            }//End of condition 'F current Source'
-        }//End of condition
+            FCurrentSource fCurrentSource = new FCurrentSource(strings[0], node1, node2, strings[3], getNumber(strings[4]));
+        }//End of condition 'F current Source'
     }//End of function StringAnalyzer
 
     //We should check for the suffixes p, n, u, m, k, M, G
-    static Double number(String string) {
-        double number, rawNumber;
-        rawNumber = Double.parseDouble(string.trim().replaceAll("(p|n|u|m|k|M|G)", ""));
+    public static double getNumber(String str) {
+        int rawNum = Integer.parseInt(str.replaceAll("(p|n|u|m|k|M|G)", ""));
 
-        if(string.endsWith("p"))
-            number = rawNumber * Math.pow(10d, -12d);
-        else if(string.endsWith("n"))
-            number = rawNumber * Math.pow(10d, -9d);
-        else if(string.endsWith("u"))
-            number = rawNumber * Math.pow(10d, -6d);
-        else if(string.endsWith("m"))
-            number = rawNumber * Math.pow(10d, -3d);
-        else if(string.endsWith("k"))
-            number = rawNumber * Math.pow(10d, 3d);
-        else if(string.endsWith("M"))
-            number = rawNumber * Math.pow(10d, 6d);
-        else if(string.endsWith("G"))
-            number = rawNumber * Math.pow(10d, 9d);
-        else
-            number = Double.parseDouble(string);
+        if (str.endsWith("p"))
+            return rawNum * Math.pow(10d, -12d);
+        if (str.endsWith("n"))
+            return rawNum * Math.pow(10d, -9d);
+        if (str.endsWith("u"))
+            return rawNum * Math.pow(10d, -6d);
+        if (str.endsWith("m"))
+            return rawNum * Math.pow(10d, -3d);
+        if (str.endsWith("k"))
+            return rawNum * Math.pow(10d, 3d);
+        if (str.endsWith("M"))
+            return rawNum * Math.pow(10d, 6d);
+        if (str.endsWith("G"))
+            return rawNum * Math.pow(10d, 9d);
 
-        return number;
-    }//End of function 'number'
+        return rawNum;
+    }//End of function 'getNumber'
 
     /*
     static void testCase() {

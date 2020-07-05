@@ -20,6 +20,7 @@ public class GCurrentSource {//Voltage controlled current source
         this.nodeIn = nodeIn;
         this.nodeOut = nodeOut;
         this.a = a;
+        allGCurrentSources.add(this);
     }//End of the constructor
 
     double getCurrent(double time) {

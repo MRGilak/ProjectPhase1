@@ -18,6 +18,7 @@ public class HVoltageSource {//Current controlled voltage source
         this.node2 = node2;
         this.element = Main.findElement(string);
         this.a = a;
+        allHVoltageSources.add(this);
     }//End of the constructor
 
     double getVoltage(double time) {

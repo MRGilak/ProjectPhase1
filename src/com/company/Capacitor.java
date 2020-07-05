@@ -18,6 +18,7 @@ public class Capacitor implements IElement {
         this.node2 = node2;
         this.capacity = capacity;
         this.initialVoltage = initialVoltage;
+        allCapacitors.add(this);
     } //End of the constructor
 
     public double getVoltage(double time) {

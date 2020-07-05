@@ -20,6 +20,7 @@ public class EVoltageSource {//Voltage controlled voltage source
         this.nodeIn = nodeIn;
         this.nodeOut = nodeOut;
         this.a = a;
+        allEVoltageSources.add(this);
     }//End of the constructor
 
     double getVoltage(double time) {

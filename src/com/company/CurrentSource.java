@@ -22,6 +22,7 @@ public class CurrentSource {
         this.domain = domain;
         this.frequency = frequency;
         this.phase = phase;
+        allCurrentSources.add(this);
     }//End of the constructor
 
     double getCurrent(double time) {
