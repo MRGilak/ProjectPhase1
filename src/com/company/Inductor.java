@@ -1,9 +1,10 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Inductor implements IElement {
-    public static List<Inductor> allInductors;
+    public static List<Inductor> allInductors = new ArrayList<Inductor>();
 
     String name;
     Node node1;
@@ -44,5 +45,9 @@ public class Inductor implements IElement {
         }
 
         return null;
+    }
+
+    public String getName() {
+        return name;
     }
 }//End of class Inductor

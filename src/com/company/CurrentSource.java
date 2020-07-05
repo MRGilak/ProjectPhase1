@@ -1,9 +1,10 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CurrentSource {
-    public static List<CurrentSource> allCurrentSources;
+    public static List<CurrentSource> allCurrentSources = new ArrayList<CurrentSource>();
 
     String name;
     Node node1;

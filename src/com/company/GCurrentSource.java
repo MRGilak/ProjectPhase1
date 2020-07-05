@@ -3,8 +3,8 @@ package com.company;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EVoltageSource {//Voltage controlled voltage source
-    public static List<EVoltageSource> allEVoltageSources = new ArrayList<EVoltageSource>();
+public class GCurrentSource {//Voltage controlled current source
+    public static List<GCurrentSource> allGCurrentSources = new ArrayList<GCurrentSource>();
 
     String name;
     Node node1;
@@ -13,7 +13,7 @@ public class EVoltageSource {//Voltage controlled voltage source
     Node nodeOut;
     double a;
 
-    EVoltageSource(String name, Node node1, Node node2, Node nodeIn, Node nodeOut, double a) { //constructor of the class
+    GCurrentSource(String name, Node node1, Node node2, Node nodeIn, Node nodeOut, double a) { //constructor of the class
         this.name = name;
         this.node1 = node1;
         this.node2 = node2;
@@ -22,7 +22,7 @@ public class EVoltageSource {//Voltage controlled voltage source
         this.a = a;
     }//End of the constructor
 
-    double getVoltage(double time) {
+    double getCurrent(double time) {
         return a * (nodeIn.getVoltage(time) - nodeOut.getVoltage(time));
     }
 }

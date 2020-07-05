@@ -1,9 +1,10 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Capacitor implements IElement {
-    public static List<Capacitor> allCapacitors;
+    public static List<Capacitor> allCapacitors = new ArrayList<Capacitor>();
 
     String name;
     Node node1;
@@ -44,5 +45,9 @@ public class Capacitor implements IElement {
         }
 
         return null;
+    }
+
+    public String getName() {
+        return name;
     }
 }//End of class Element

@@ -2,10 +2,11 @@ package com.company;
 
 import com.sun.org.apache.regexp.internal.RE;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Resistor implements IElement {
-    public static List<Resistor> allResistors;
+    public static List<Resistor> allResistors = new ArrayList<Resistor>();
 
     String name;
     Node node1;
@@ -39,5 +40,9 @@ public class Resistor implements IElement {
         }
 
         return null;
+    }
+
+    public String getName() {
+        return name;
     }
 } //End of class Resistor

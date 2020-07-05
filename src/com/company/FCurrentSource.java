@@ -3,8 +3,8 @@ package com.company;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HVoltageSource {//Current controlled voltage source
-    public static List<HVoltageSource> allHVoltageSources = new ArrayList<HVoltageSource>();
+public class FCurrentSource{//Current controlled current source
+    public static List<FCurrentSource> allFCurrentSources = new ArrayList<FCurrentSource>();
 
     String name;
     Node node1;
@@ -12,7 +12,7 @@ public class HVoltageSource {//Current controlled voltage source
     IElement element;
     double a;
 
-    HVoltageSource(String name, Node node1, Node node2, String string, double a) { //constructor of the class
+    FCurrentSource(String name, Node node1, Node node2, String string, double a) {//constructor of the class
         this.name = name;
         this.node1 = node1;
         this.node2 = node2;

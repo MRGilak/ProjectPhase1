@@ -1,9 +1,10 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    public static List<Node> allNodes;
+    public static List<Node> allNodes = new ArrayList<Node>();
 
     String name;
     double voltage;

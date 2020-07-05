@@ -1,9 +1,10 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VoltageSource {
-    public static List<VoltageSource> allVoltageSources;
+    public static List<VoltageSource> allVoltageSources = new ArrayList<VoltageSource>();
 
     String name;
     Node node1;
